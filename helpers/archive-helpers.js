@@ -30,7 +30,6 @@ exports.readListOfUrls = function(callback) {
   // if(this.list().indexof(res.url) === -1){
   //   return false; 
   // }
-
   fs.readFile(this.paths.list, 'utf8', function(err, data){
     if(err){
       throw err;
@@ -39,14 +38,14 @@ exports.readListOfUrls = function(callback) {
     }
   });
 
-
-  //this.paths.list;
-
-  //Maybe this parses the data. JSON.parse(?)
 };
 
-exports.isUrlInList = function() {
-  //If requested site exists, return true
+exports.isUrlInList = function(targetUrl, callback) {
+  this.readListOfUrls(function(sites){
+    if (callback(sites)){
+      return true;
+    }
+  }); 
 };
 
 exports.addUrlToList = function() {
