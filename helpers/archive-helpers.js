@@ -42,18 +42,21 @@ exports.readListOfUrls = function(callback) {
 
 exports.isUrlInList = function(targetUrl, callback) {
   this.readListOfUrls(function(sites){
-    if (callback(sites)){
-      return true;
-    }
-  }); 
+    callback(sites);
+  });
 };
 
-exports.addUrlToList = function() {
-  //If sites does not exist, add to the list
+exports.addUrlToList = function(targetUrl, callback) {
+  this.isUrlInList(targetUrl, function(test) {
+    callback(test);
+  }
+ );
 };
 
-exports.isUrlArchived = function() {
-  //Checks to see if url page is in our sites archive
+exports.isUrlArchived = function(targetUrl, callback) {
+  this.addUrlToList(targetUrl, function(url){
+    callback(url);
+  });
 };
 
 exports.downloadUrls = function() {
