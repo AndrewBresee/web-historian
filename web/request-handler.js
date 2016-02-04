@@ -7,18 +7,22 @@ var archive = require('../helpers/archive-helpers');
 
 var handleRequest = function (req, res) {
   if(req.method === 'GET'){  
-    fs.readFile('./public/index.html', function(err, html){
-      if(err){
-        throw err;
-        // console.log("ERROR!!");
-      }
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(html);
-      res.end();
-    });
-   
+    if(req.url === '/'){
+      fs.readFile(path.join(__dirname, './public/index.html'), function(err, html){
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(html);
+        res.end();
+      });
+      //Use our helper funcitons to look through archive. 
+      //If in archive, return it
+    } else {
+      return archive.readListOfUrls();
+      //otherwise, throw error
+    } 
+    // else {
+    //   throw err;
+    // }
   }
-
   //   response.sendFile('./public/index.html');
   //   fs.readFile('./public/index.html', function(err, html){
   //     if(err){
