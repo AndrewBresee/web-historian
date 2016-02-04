@@ -5,23 +5,18 @@ var path = require('path');
 var archive = require('../helpers/archive-helpers');
 // require more modules/folders here!
 
-var content;
-var index = fs.readFile('./public/index.html',function(err, data){
-  if(err){
-    throw err; 
-  }
-  content = data; 
-});
-
-function(){
-  console.log("CONTENT!!   ", content);
-}();
-
-exports.handleRequest = function (req, res) {
+var handleRequest = function (req, res) {
   if(req.method === 'GET'){  
-    res.on('data', function(data){})  
-    response.writeHead(200, headers);
-    response.end(index);
+    fs.readFile('./public/index.html', function(err, html){
+      if(err){
+        throw err;
+        // console.log("ERROR!!");
+      }
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(html);
+      res.end();
+    });
+   
   }
 
   //   response.sendFile('./public/index.html');
@@ -36,6 +31,6 @@ exports.handleRequest = function (req, res) {
   //     }).listen(8000);
   //   }
   // ); 
-
-  res.end(archive.paths.list);
 };
+
+exports.handleRequest = handleRequest;
