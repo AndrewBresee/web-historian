@@ -26,16 +26,26 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function() {
+  
+  //Look at our sites.txt
+
+  //this.paths.list;
+
+  //Maybe this parses the data. JSON.parse(?)
 };
 
 exports.isUrlInList = function() {
+  //If requested site exists, return true
 };
 
 exports.addUrlToList = function() {
+  //If sites does not exist, add to the list
 };
 
 exports.isUrlArchived = function() {
+  //Checks to see if url page is in our sites archive
 };
 
 exports.downloadUrls = function() {
+  //If there, then return to user. 
 };
