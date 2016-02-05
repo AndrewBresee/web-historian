@@ -26,10 +26,6 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
-  //Look at our sites.txt
-  // if(this.list().indexof(res.url) === -1){
-  //   return false; 
-  // }
   fs.readFile(this.paths.list, 'utf8', function(err, data){
     if(err){
       throw err;
@@ -42,23 +38,25 @@ exports.readListOfUrls = function(callback) {
 
 exports.isUrlInList = function(targetUrl, callback) {
   this.readListOfUrls(function(sites){
-    callback(sites);
+    callback(sites.indexOf(targetUrl) !== -1);
   });
 };
 
 exports.addUrlToList = function(targetUrl, callback) {
-  this.isUrlInList(targetUrl, function(test) {
-    callback(test);
+  this.readListOfUrls(targetUrl, function(test){
+    fs.writeFile(test,targetUrl,callback);
   }
  );
 };
 
 exports.isUrlArchived = function(targetUrl, callback) {
   this.addUrlToList(targetUrl, function(url){
+    //Read file system
     callback(url);
   });
 };
 
 exports.downloadUrls = function() {
+  //This is out helper function
   //If there, then return to user. 
 };

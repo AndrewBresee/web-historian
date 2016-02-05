@@ -16,25 +16,22 @@ var handleRequest = function (req, res) {
       //Use our helper funcitons to look through archive. 
       //If in archive, return it
     } else {
-      return archive.readListOfUrls();
-      //otherwise, throw error
-    } 
+      console.log("REQUESTED URL! : --- ", req.url);
+      archive.isUrlInList(req.url, function(url){
+      //if URL is there, return URL. 
+      //otherwise, change callback to add to the list. 
+      fs.readFile(path.join(__dirname, req.url), function (urls) {
+        if(urls.indexOf(req.url) !== -1){
+          return req.url; 
+        }
+      });
+    });
+
     // else {
     //   throw err;
     // }
   }
-  //   response.sendFile('./public/index.html');
-  //   fs.readFile('./public/index.html', function(err, html){
-  //     if(err){
-  //       throw err;
-  //     }
-  //     http.createServer(function(req, res){
-  //       res.writeHead(200, {"Content-Type": "text/html"});
-  //       res.write(html);
-  //         res.end();
-  //     }).listen(8000);
-  //   }
-  // ); 
+  }
 };
 
 exports.handleRequest = handleRequest;
